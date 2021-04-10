@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model sync_meta {
+  id            Int                      @id
+  started_at    DateTime?                @db.Timestamptz(6)
+  completed_at  DateTime?                @db.Timestamptz(6)
+  duration_last Unsupported("interval")?
+
+  @@map("_sync_meta")
+}
+
+model jobs {
+  id           String    @id
+  created_time DateTime? @db.Timestamptz(6)
+  name         String?
+  profession   String?
+  salary       String?
+}
